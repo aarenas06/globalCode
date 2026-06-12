@@ -300,6 +300,134 @@ function initCounters() {
   counters.forEach(el => observer.observe(el));
 }
 
+/* ============================================================
+   MARQUEE TECNOLOGIAS — loop continuo sin saltos
+   ============================================================ */
+function initTechMarquee() {
+  const rows = document.querySelectorAll('.marquee-row');
+  if (!rows.length) return;
+
+  const states = [];
+  let rafId = null;
+  let lastTs = 0;
+
+  function buildBaseNodes(track) {
+    if (!track.dataset.baseHtml) {
+      track.dataset.baseHtml = track.innerHTML;
+    }
+    track.innerHTML = track.dataset.baseHtml;
+    return Array.from(track.children).map(node => node.cloneNode(true));
+  }
+
+  function prepareRow(row) {
+    const tracks = row.querySelectorAll('.marquee-track');
+    if (tracks.length < 2) return null;
+
+    const trackA = tracks[0];
+    const trackB = tracks[1];
+    const baseNodes = buildBaseNodes(trackA);
+
+    trackB.dataset.baseHtml = trackA.dataset.baseHtml;
+    trackB.innerHTML = trackB.dataset.baseHtml;
+
+    const rowWidth = row.clientWidth;
+    const gap = parseFloat(getComputedStyle(trackA).gap) || 16;
+
+    /* Asegura que la pista tenga ancho suficiente para pantallas amplias. */
+    let guard = 0;
+    while (trackA.scrollWidth < rowWidth * 1.35 && guard < 24) {
+      baseNodes.forEach(node => trackA.appendChild(node.cloneNode(true)));
+      baseNodes.forEach(node => trackB.appendChild(node.cloneNode(true)));
+      guard += 1;
+    }
+
+    const width = trackA.scrollWidth;
+    const cycle = width + gap;
+    const reverse = row.classList.contains('reverse');
+    const speed = isMobile() ? 34 : 52; // px por segundo
+    const startX = reverse ? -cycle : 0;
+
+    row.style.height = trackA.offsetHeight + 'px';
+
+    return {
+      row,
+      trackA,
+      trackB,
+      cycle,
+      speed,
+      dir: reverse ? 1 : -1,
+      x: startX,
+      paused: false
+    };
+  }
+
+  function mountRows() {
+    states.length = 0;
+
+    rows.forEach(row => {
+      const state = prepareRow(row);
+      if (!state) return;
+
+      state.row.addEventListener('mouseenter', () => {
+        state.paused = true;
+      });
+      state.row.addEventListener('mouseleave', () => {
+        state.paused = false;
+      });
+
+      states.push(state);
+    });
+  }
+
+  function renderState(state) {
+    state.trackA.style.transform = `translate3d(${state.x}px, 0, 0)`;
+    state.trackB.style.transform = `translate3d(${state.x + state.cycle}px, 0, 0)`;
+  }
+
+  function tick(ts) {
+    if (!lastTs) lastTs = ts;
+    const dt = (ts - lastTs) / 1000;
+    lastTs = ts;
+
+    states.forEach(state => {
+      if (!state.paused) {
+        state.x += state.dir * state.speed * dt;
+
+        if (state.dir < 0 && state.x <= -state.cycle) {
+          state.x += state.cycle;
+        }
+        if (state.dir > 0 && state.x >= 0) {
+          state.x -= state.cycle;
+        }
+      }
+
+      renderState(state);
+    });
+
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function start() {
+    if (reducedMotion) return;
+    mountRows();
+    states.forEach(renderState);
+
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(tick);
+  }
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      lastTs = 0;
+      start();
+    }, 150);
+  });
+
+  start();
+}
+
 function animateCounter(el) {
   const target = parseInt(el.dataset.target, 10);
   const suffix = el.dataset.suffix || '';
@@ -397,12 +525,18 @@ function initGSAP() {
     }
   });
 
-  /* ── Servicios: stagger limpio ─────────────────────────────── */
-  gsap.to('.servicio-card', {
-    opacity: 1, y: 0,
-    duration: 0.8, ease: 'power3.out', stagger: 0.1,
-    scrollTrigger: { trigger: '#servicios', start: 'top 80%', once: true }
-  });
+  /* ── Servicios: stagger limpio (sin solapamiento previo) ───── */
+  gsap.fromTo('.servicio-card',
+    { opacity: 0, y: 36 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      stagger: 0.1,
+      scrollTrigger: { trigger: '#servicios', start: 'top 80%', once: true }
+    }
+  );
 
   /* ── Proceso: línea scrub + círculos ───────────────────────── */
   const procesosLine = document.getElementById('proceso-line');
@@ -567,6 +701,7 @@ function initContactForm() {
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
   initLoadingScreen();
+  initTechMarquee();
   initCursor();
   initNavbar();
   initTypingEffect();

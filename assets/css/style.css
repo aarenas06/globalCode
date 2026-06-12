@@ -798,6 +798,12 @@ body.cursor-hovering #cursor-dot {
   cursor: none;
 }
 
+/* Evita que la clase global .reveal desplace las cards de servicios
+   y genere solapamiento entre filas antes de animar con GSAP. */
+.servicios-grid .servicio-card.reveal {
+  transform: none;
+}
+
 .servicio-card::after {
   content: '';
   position: absolute;
@@ -970,43 +976,28 @@ body.cursor-hovering #cursor-dot {
   flex-direction: column;
   gap: 20px;
   margin-bottom: 48px;
+  overflow: hidden;
 }
 
 .marquee-row {
+  position: relative;
   display: flex;
-  gap: 16px;
+  width: 100%;
   overflow: hidden;
+  min-height: 48px;
   mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
 }
 
 .marquee-track {
+  position: absolute;
+  left: 0;
+  top: 0;
   display: flex;
   gap: 16px;
-  animation: marqueeLeft 30s linear infinite;
-  flex-shrink: 0;
-}
-
-.marquee-row.reverse .marquee-track {
-  animation: marqueeRight 30s linear infinite;
-}
-
-.marquee-track:nth-child(2) {
-  animation-delay: -15s;
-}
-
-.marquee-row.reverse .marquee-track:nth-child(2) {
-  animation-delay: -15s;
-}
-
-@keyframes marqueeLeft {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-100%); }
-}
-
-@keyframes marqueeRight {
-  from { transform: translateX(-100%); }
-  to   { transform: translateX(0); }
+  min-width: max-content;
+  flex: 0 0 auto;
+  will-change: transform;
 }
 
 .tech-pill {
@@ -1647,6 +1638,20 @@ select.form-input {
     align-items: center;
   }
 
+  .marquee-wrap {
+    gap: 14px;
+  }
+
+  .marquee-row,
+  .marquee-track {
+    gap: 12px;
+  }
+
+  .tech-pill {
+    padding: 9px 16px;
+    font-size: 13px;
+  }
+
   .stat-card {
     width: 100%;
     max-width: 280px;
@@ -1658,6 +1663,16 @@ select.form-input {
 @media (max-width: 480px) {
   .servicios-grid {
     grid-template-columns: 1fr;
+  }
+
+  .marquee-row,
+  .marquee-track {
+    gap: 10px;
+  }
+
+  .tech-pill {
+    padding: 8px 14px;
+    font-size: 12px;
   }
 
   .proceso-steps {
