@@ -225,7 +225,7 @@ function initMagneticButtons() {
 
 /* ── Scroll spy ─────────────────────────────────────────────── */
 function updateScrollSpy() {
-  const sections = ['inicio', 'servicios', 'proceso', 'tecnologias', 'portafolio', 'contacto'];
+  const sections = ['inicio', 'productos', 'servicios', 'proceso', 'tecnologias', 'portafolio', 'contacto'];
   const navLinks  = document.querySelectorAll('.nav-link[data-section]');
   const offset    = 120;
 

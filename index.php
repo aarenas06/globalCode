@@ -134,10 +134,11 @@ $ogImage = $baseUrl . '/assets/img/logo.png';
 
     <ul class="nav-links" role="list">
       <li><a href="#inicio" class="nav-link" data-section="inicio">Inicio</a></li>
+      <li><a href="#productos" class="nav-link" data-section="productos">Productos</a></li>
       <li><a href="#servicios" class="nav-link" data-section="servicios">Servicios</a></li>
       <li><a href="#proceso" class="nav-link" data-section="proceso">Proceso</a></li>
       <li><a href="#tecnologias" class="nav-link" data-section="tecnologias">Tecnologías</a></li>
-      <li><a href="#portafolio" class="nav-link" data-section="portafolio">Portafolio</a></li>
+      <!-- <li><a href="#portafolio" class="nav-link" data-section="portafolio">Portafolio</a></li> -->
       <li><a href="#contacto" class="nav-link" data-section="contacto">Contacto</a></li>
     </ul>
 
@@ -152,6 +153,7 @@ $ogImage = $baseUrl . '/assets/img/logo.png';
   <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación" aria-hidden="true">
     <nav>
       <a href="#inicio" class="mobile-nav-link">Inicio</a>
+      <a href="#productos" class="mobile-nav-link">Productos</a>
       <a href="#servicios" class="mobile-nav-link">Servicios</a>
       <a href="#proceso" class="mobile-nav-link">Proceso</a>
       <a href="#tecnologias" class="mobile-nav-link">Tecnologías</a>
@@ -292,7 +294,41 @@ $ogImage = $baseUrl . '/assets/img/logo.png';
     </section>
 
     <!-- ══════════════════════════════════════════════════════
-         SECCIÓN 02 — FRASE IMPACTO
+         SECCIÓN 02 — PRODUCTOS
+    ══════════════════════════════════════════════════════ -->
+    <section id="productos" aria-label="Productos">
+      <div class="section-header centered reveal">
+        <span class="eyebrow">// Nuestros productos</span>
+        <h2 class="section-title">Software propio para problemas reales</h2>
+        <p class="section-subtitle">
+          Además de construir a la medida, desarrollamos nuestras propias plataformas
+          para sectores específicos. Esta es la primera.
+        </p>
+      </div>
+
+      <div class="productos-grid">
+        <article class="producto-card reveal">
+          <div class="producto-media">
+            <img src="./assets/img/piscihelp/web/geoloc-estanques.jpg"
+              alt="Panel de PisciHelp mostrando la geolocalización de estanques y jaulones de una granja acuícola"
+              loading="lazy" decoding="async" width="1600" height="893" />
+            <span class="producto-badge">Disponible</span>
+          </div>
+          <div class="producto-info">
+            <span class="producto-tag">Piscicultura · Acuicultura</span>
+            <h3 class="producto-titulo">PisciHelp</h3>
+            <p class="producto-desc">
+              La plataforma que le dice a tu granja qué tiene, dónde está y cuándo
+              necesita mantenimiento. Activos, ubicaciones y reportes, en un solo lugar.
+            </p>
+            <a href="./piscihelp.php" class="btn btn-secondary">Conocer PisciHelp &nbsp;→</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECCIÓN 03 — FRASE IMPACTO
     ══════════════════════════════════════════════════════ -->
     <section id="frase-impacto" aria-label="Propuesta de valor">
       <div class="frase-impacto-grid">
@@ -358,7 +394,7 @@ $ogImage = $baseUrl . '/assets/img/logo.png';
     </section>
 
     <!-- ══════════════════════════════════════════════════════
-         SECCIÓN 03 — SERVICIOS
+         SECCIÓN 04 — SERVICIOS
     ══════════════════════════════════════════════════════ -->
     <section id="servicios" aria-label="Servicios">
       <div class="section-header centered">
@@ -477,7 +513,7 @@ $ogImage = $baseUrl . '/assets/img/logo.png';
     </section>
 
     <!-- ══════════════════════════════════════════════════════
-         SECCIÓN 04 — PROCESO
+         SECCIÓN 05 — PROCESO
     ══════════════════════════════════════════════════════ -->
     <section id="proceso" aria-label="Proceso de trabajo">
       <div class="section-header centered" style="max-width:1100px;margin:0 auto 64px;">
@@ -540,7 +576,7 @@ $ogImage = $baseUrl . '/assets/img/logo.png';
     </section>
 
     <!-- ══════════════════════════════════════════════════════
-         SECCIÓN 05 — TECNOLOGÍAS
+         SECCIÓN 06 — TECNOLOGÍAS
     ══════════════════════════════════════════════════════ -->
     <section id="tecnologias" aria-label="Stack tecnológico">
       <div class="tecnologias-header">
@@ -601,7 +637,7 @@ $ogImage = $baseUrl . '/assets/img/logo.png';
     </section>
 
     <!-- ══════════════════════════════════════════════════════
-         SECCIÓN 06 — POR QUÉ GLOBAL CODE
+         SECCIÓN 07 — POR QUÉ GLOBAL CODE
     ══════════════════════════════════════════════════════ -->
     <section id="por-que" aria-label="Por qué Global Code">
       <div class="por-que-grid">
@@ -661,7 +697,7 @@ $ogImage = $baseUrl . '/assets/img/logo.png';
     </section>
 
     <!-- ══════════════════════════════════════════════════════
-         SECCIÓN 07 — PORTAFOLIO
+         SECCIÓN 08 — PORTAFOLIO
     ══════════════════════════════════════════════════════ -->
     <!-- <section id="portafolio" aria-label="Portafolio de proyectos">
       <div class="section-header">
@@ -739,7 +775,7 @@ $ogImage = $baseUrl . '/assets/img/logo.png';
     </section> 
 -->
     <!-- ══════════════════════════════════════════════════════
-         SECCIÓN 08 — CONTACTO
+         SECCIÓN 09 — CONTACTO
     ══════════════════════════════════════════════════════ -->
     <section id="contacto" aria-label="Contacto">
       <div id="particles-contacto" aria-hidden="true"></div>
@@ -872,10 +908,11 @@ $ogImage = $baseUrl . '/assets/img/logo.png';
         <p class="footer-col-title">Navegación</p>
         <ul class="footer-links" role="list">
           <li><a href="#inicio" class="footer-link">Inicio</a></li>
+          <li><a href="#productos" class="footer-link">Productos</a></li>
           <li><a href="#servicios" class="footer-link">Servicios</a></li>
           <li><a href="#proceso" class="footer-link">Proceso</a></li>
           <li><a href="#tecnologias" class="footer-link">Tecnologías</a></li>
-          <li><a href="#portafolio" class="footer-link">Portafolio</a></li>
+          <!-- <li><a href="#portafolio" class="footer-link">Portafolio</a></li> -->
           <li><a href="#contacto" class="footer-link">Contacto</a></li>
         </ul>
       </div>
